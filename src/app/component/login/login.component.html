@@ -1,0 +1,18 @@
+
+<div class="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 sm:px-6 lg:px-6">
+  <div class="w-full max-w-md space-y-8">
+    <div>
+      <img class="w-auto h-12 mx-auto " src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
+      <h2 class="mt-6 text-3xl font-extrabold text-center texto ">
+        LOGIN
+      </h2>
+    </div>
+
+<form [formGroup] = 'formlogin' (ngSubmit)="login()" >
+  <input type="text" class="w-full mb-2 text-gray-500 rounded-md focus:border-green-900 focus:ring-green-900" placeholder="User"  formControlName='email' >
+  <input type="password" class="w-full mb-2 text-gray-500 rounded-md focus:border-green-900 focus:ring-green-900" formControlName='password'>
+    <button type="submit" class="w-full p-2 mt-2 rounded-md boton" [disabled]='!formlogin.valid' >Iniciar Sesión</button>
+</form>
+  </div>
+</div>
+

@@ -1,0 +1,22 @@
+
+$color1: #37AFA9;
+$color2:#2D8E84;
+$color3:#0C6950;
+$color4:#E0F2F2;
+$color5:#152329;
+.boton{
+  color:$color4;
+  background-color: $color3;
+
+}
+.boton:hover{
+  background-color: $color5;
+}
+.boton:disabled{
+  background-color: $color1;
+  color: $color5;
+}
+.texto{
+  color: $color1 ;
+}
+
