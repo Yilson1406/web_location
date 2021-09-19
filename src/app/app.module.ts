@@ -10,15 +10,27 @@ import { LoginComponent } from './component/login/login.component';
 //matrial angular
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatMenuModule} from '@angular/material/menu';
 import { AdminDashboardComponent } from './component/admin-dashboard/admin-dashboard.component';
-import { UsersDashboardComponent } from './component/users-dashboard/users-dashboard.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
+
+
+
+import { MapaComponent } from './component/mapa/mapa.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { UpdatepasswordComponent } from './modals/updatepassword/updatepassword.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AdminDashboardComponent,
-    UsersDashboardComponent,
+    MapaComponent,
+    FooterComponent,
+    UpdatepasswordComponent
 
   ],
   imports: [
@@ -26,10 +38,15 @@ import { UsersDashboardComponent } from './component/users-dashboard/users-dashb
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
     BrowserAnimationsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTableModule,
+    MatMenuModule,
+    MatIconModule,
+    HttpClientModule
   ],
-  providers: [],
+    providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
