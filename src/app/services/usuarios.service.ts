@@ -35,8 +35,13 @@ export class UsuariosService {
 
   }
   getusertoken():Observable<Users>{
-
-   let ruta = this.urlbase + "users/one";
+   let ruta = this.urlbase + "users";
    return this.httclient.get<Users>(ruta,{headers: this.headers});
   }
+
+  getlocationusertoken():Observable<Users>{
+    let ruta = this.urlbase + "users/location";
+    return this.httclient.get<Users>(ruta,{headers: this.headers});
+   }
+
 }

@@ -37,12 +37,24 @@ export class LoginComponent implements OnInit {
 
 
       setTimeout(() => {
-        localStorage.setItem('SEED-ESME', JSON.stringify(datos));
-        if(datos.rol == 'User'){
-          this.router.navigate(['/user'])
-        }if (datos.rol == 'ADMIN') {
-          this.router.navigate(['/admin'])
-        }
+
+          if(datos.estado){
+            localStorage.setItem('SEED-ESME', JSON.stringify({Token:datos.Token,rol:datos.rol}));
+            if(datos.rol == 'USER'){
+              this.router.navigate(['/user'])
+            }if (datos.rol == 'ADMIN') {
+              this.router.navigate(['/admin'])
+            }
+          }else{
+            this.texto=true;
+            this.spiner = false
+            this.viewmensaje = true
+            this.mensaje ='Usuario no Existe'
+            setTimeout(() => {
+              this.viewmensaje = false
+            }, 2000);
+          }
+
       }, 2000);
 
       // console.log(datos);
@@ -56,7 +68,7 @@ export class LoginComponent implements OnInit {
         if (error.status === 400) {
           this.viewmensaje = true
           this.mensaje =error.error.Mensaje;
-          console.log('error',error.error.Mensaje);
+//          console.log('error',error.error.Mensaje);
         }if(error.status === 504){
           console.log('error de api');
 

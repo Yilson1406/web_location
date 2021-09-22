@@ -22,7 +22,7 @@ constructor(private router:Router){
   if (user == null) {
     this.router.navigate(['/login'])
   }else{
-    if(user.rol == 'User'){
+    if(user.rol == 'USER'){
       this.router.navigate(['/user'])
     }
     if (user.rol == 'ADMIN') {

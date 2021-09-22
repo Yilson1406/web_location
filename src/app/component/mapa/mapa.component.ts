@@ -19,32 +19,21 @@ export class MapaComponent implements OnInit {
   longitud:number;
   users:Users[];
   user:string=''
+  loca:any
+  notlocation:boolean=false
 
  constructor(public dialog: MatDialog, private _users:UsuariosService,private router: Router){
-   this.latitud=0.9875287;
-   this.longitud=-79.6545162
+   this.latitud=0;
+   this.longitud=0
    this.users = [];
  }
 
   ngOnInit(){
     this.getusers();
+    this.getlocation();
 
 
-    (mapboxgl as any).accessToken = environment.mapboxgl;
-  var mapa = new mapboxgl.Map({
-container: 'map', // container ID
-style: 'mapbox://styles/mapbox/streets-v11', // style URL
-center: [this.longitud,this.latitud], // starting position [lng, lat]
-zoom: 16   // starting zoom
-});
 
-mapa.addControl(new mapboxgl.NavigationControl());
-// Set marker options.
-let marker = new mapboxgl.Marker({
-  color: "#152329",
-  draggable: false
-}).setLngLat([this.longitud,this.latitud])
-  .addTo(mapa);
 
   }
 
@@ -61,6 +50,70 @@ getusers(){
     this.users.push(datos)
     this.user = datos.nombres;
     // console.log(this.users);
+
+  })
+}
+getlocation(){
+  this._users.getlocationusertoken().subscribe(locations=>{
+    this.loca =locations;
+    if(!this.loca[0]){
+      this.notlocation = true;
+      (mapboxgl as any).accessToken = environment.mapboxgl;
+      var mapa = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [-79.009094,-1.5908848], // starting position [lng, lat]
+    zoom: 6   // starting zoom
+    });
+    mapa.addControl(
+      new mapboxgl.GeolocateControl({
+      positionOptions: {
+      enableHighAccuracy: true
+      },
+      // When active the map will receive updates to the device's location as it changes.
+      trackUserLocation: true,
+      // Draw an arrow next to the location dot to indicate which direction the device is heading.
+      showUserHeading: true
+      })
+      );
+    mapa.addControl(new mapboxgl.NavigationControl());
+    }else{
+
+      this.longitud = this.loca[0].longitud;
+      this.latitud = this.loca[0].latitud;
+      // console.log(this.latitud,this.longitud);
+
+      (mapboxgl as any).accessToken = environment.mapboxgl;
+      var mapa = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [this.latitud,this.longitud], // starting position [lng, lat]
+    zoom: 16   // starting zoom
+    });
+    mapa.addControl(
+      new mapboxgl.GeolocateControl({
+      positionOptions: {
+      enableHighAccuracy: true
+      },
+      // When active the map will receive updates to the device's location as it changes.
+      trackUserLocation: true,
+      // Draw an arrow next to the location dot to indicate which direction the device is heading.
+      showUserHeading: true
+      })
+      );
+    mapa.addControl(new mapboxgl.NavigationControl());
+    // Set marker options.
+    let marker = new mapboxgl.Marker({
+      color: "#152329",
+      draggable: false
+    }).setLngLat([this.latitud,this.longitud])
+      .addTo(mapa);
+
+    }
+
+
+
+
 
   })
 }
